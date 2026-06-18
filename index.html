@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuition Fee Management</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1>Tuition Fee Manager</h1>
+            <div class="today-date">Today: <span id="todayDate"></span></div>
+        </header>
+
+        <!-- Dashboard -->
+        <section class="dashboard">
+            <div class="stat-card">
+                <h3>Total Students</h3>
+                <p id="totalStudents">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Paid This Month</h3>
+                <p id="paidStudents">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Unpaid</h3>
+                <p id="unpaidStudents">0</p>
+            </div>
+            <div class="stat-card overdue">
+                <h3>Overdue</h3>
+                <p id="overdueStudents">0</p>
+            </div>
+        </section>
+
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-tab="students">Students</button>
+            <button class="tab-btn" data-tab="add">Add Student</button>
+        </nav>
+
+        <!-- Students Tab -->
+        <section id="students" class="tab-content active">
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search student by name...">
+            </div>
+            <div id="studentsList" class="students-list"></div>
+            <div id="noStudents" class="empty-state">
+                <p>No students found. Add a student to get started.</p>
+            </div>
+        </section>
+
+        <!-- Add/Edit Student Tab -->
+        <section id="add" class="tab-content">
+            <form id="studentForm" class="form">
+                <h2 id="formTitle">Add New Student</h2>
+                
+                <div class="form-group">
+                    <label for="studentName">Student Name *</label>
+                    <input type="text" id="studentName" required placeholder="Enter student name">
+                </div>
+
+                <div class="form-group">
+                    <label for="phoneNumber">Phone Number *</label>
+                    <input type="tel" id="phoneNumber" required placeholder="Enter phone number">
+                </div>
+
+                <div class="form-group">
+                    <label for="monthlyFee">Monthly Fee *</label>
+                    <input type="number" id="monthlyFee" required min="0" placeholder="Enter monthly fee" step="0.01">
+                </div>
+
+                <div class="form-group">
+                    <label for="joiningDate">Joining Date *</label>
+                    <input type="date" id="joiningDate" required>
+                </div>
+
+                <div class="form-buttons">
+                    <button type="submit" class="btn btn-primary">Save Student</button>
+                    <button type="button" id="cancelBtn" class="btn btn-secondary" style="display:none;">Cancel</button>
+                </div>
+            </form>
+        </section>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content">
+            <h2>Record Payment</h2>
+            <div class="modal-body">
+                <p><strong>Student:</strong> <span id="paymentStudentName"></span></p>
+                <p><strong>Amount:</strong> Rs. <span id="paymentAmount"></span></p>
+                <p><strong>Due Date:</strong> <span id="paymentDueDate"></span></p>
+                
+                <div class="payment-date-options">
+                    <label class="radio-label">
+                        <input type="radio" name="paymentDateOption" value="today" checked>
+                        <span>Pay Today</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="paymentDateOption" value="custom">
+                        <span>Select Custom Date</span>
+                    </label>
+                </div>
+
+                <div id="customDateContainer" style="display:none;" class="form-group">
+                    <label for="customPaymentDate">Payment Date *</label>
+                    <input type="date" id="customPaymentDate">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmPaymentBtn" class="btn btn-primary">Confirm Payment</button>
+                <button id="closePaymentModalBtn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Delete Modal -->
+    <div id="deleteModal" class="modal">
+        <div class="modal-content">
+            <h2>Delete Student</h2>
+            <p>Are you sure you want to delete <strong id="deleteStudentName"></strong>? This action cannot be undone.</p>
+            <div class="modal-footer">
+                <button id="confirmDeleteBtn" class="btn btn-danger">Delete</button>
+                <button id="closeDeleteModalBtn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment History Modal -->
+    <div id="paymentHistoryModal" class="modal">
+        <div class="modal-content">
+            <h2>Payment History: <span id="historyStudentName"></span></h2>
+            <div id="paymentHistoryList" class="payment-history-list"></div>
+            <div class="modal-footer">
+                <button id="closeHistoryModalBtn" class="btn btn-secondary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
